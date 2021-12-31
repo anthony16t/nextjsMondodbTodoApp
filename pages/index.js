@@ -38,7 +38,7 @@ export default function Home({todoList,domainUrl}) {
 }
 
 export async function getServerSideProps(){
-  const domainUrl = process.env.NODE_ENV==='development'?'http://localhost:3000/':'https://mongodb-todo-app.vercel.app/'
+  const domainUrl = process.env.NODE_ENV==='development'?'http://localhost:3000/':'https://nextjs-mondodb-todo-app.vercel.app/'
   const fetchReq = await axios.get(`${domainUrl}api/todo`)
   const todoList = await fetchReq.data
   return {

@@ -6,7 +6,7 @@ module.exports = class MongodbPlus{
         // if database was not given return an error
         if(!dbName){ this.__errorMsg('Database name is required') ; return }
         this.dbName = dbName
-        this.CLIENT = new MongoClient('mongodb+srv://test:123@nodecluster.oyabs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+        this.CLIENT = new MongoClient(process.env.DB_URL)
         this.CONNECTION = false
         this.collectionName = false
         this.schemas = {}
