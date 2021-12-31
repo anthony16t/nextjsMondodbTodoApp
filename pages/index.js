@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import Nav from '../components/Nav';
@@ -30,10 +31,10 @@ export default function Home({todoList}) {
   )
 }
 
-export async function getStaticProps(){
-  const domainUrl = process.env.NODE_ENV==='development'?'http://127.0.0.1:3000/':process.env.DOMAIN_URL
-  const fetchReq = await fetch(`${domainUrl}api/todo`)
-  const todoList = await fetchReq.json()
+export async function getServerSideProps(){
+  const domainUrl = process.env.NODE_ENV==='development'?'http://127.0.0.1:3000/':'https://nextjs-mondodb-todo-app.vercel.app/'
+  const fetchReq = await axios.get(`${domainUrl}api/todo`)
+  const todoList = await fetchReq.data
   console.log(domainUrl)
   return {
     props:{todoList:todoList}
