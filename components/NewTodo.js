@@ -1,9 +1,12 @@
 import axios from "axios";
-import { useRef } from "react"
+import { useContext, useRef } from "react"
 import { BsPlus } from "react-icons/bs";
+import { Context } from "./Context";
 
 
-export default function NewTodo({myTodoList,setMyTodoList}){
+export default function NewTodo(){
+    const {myTodoList,setMyTodoList,domainUrl} = useContext(Context)
+
     const todoInputElement = useRef()
     const todoInputBox = useRef('')
     const inputValue = useRef('')
@@ -30,7 +33,7 @@ export default function NewTodo({myTodoList,setMyTodoList}){
     async function handleNewTodoSubmit(e){
       // if return key was clicked submit and clear input value
         if(e.keyCode===13 && inputValue.current.trim().length>0){
-            let newTodoReq = await axios.post('http://localhost:3000/api/todo',{
+            let newTodoReq = await axios.post(`${domainUrl}api/todo`,{
                 body: { name: inputValue.current, status: 'pending' }
             })
             // if something goes wrong

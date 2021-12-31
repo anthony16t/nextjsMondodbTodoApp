@@ -1,10 +1,13 @@
 import axios from "axios";
+import { useContext } from "react";
 import { BsCheck, BsXLg } from "react-icons/bs";
+import { Context } from "./Context";
 
 export default function Todo({name,isDone,id,myTodoList,setMyTodoList}){
+    const {domainUrl} = useContext(Context)
     async function handleDelete(e,id){
         let newTodoList = myTodoList.filter(todo=>todo._id!==id)
-        await axios.post('http://localhost:3000/api/todo/delete',{
+        await axios.post(`${domainUrl}api/todo/delete`,{
             body:{
                 id:id
             }
@@ -18,7 +21,7 @@ export default function Todo({name,isDone,id,myTodoList,setMyTodoList}){
         }else{
             e.target.classList.add('active')
         }
-        await axios.post('http://localhost:3000/api/todo/update',{
+        await axios.post(`${domainUrl}api/todo/update`,{
             body:{
                 id:id,
                 status:isActive?'pending':'done'
