@@ -31,7 +31,8 @@ export default function Home({todoList}) {
 }
 
 export async function getServerSideProps(){
-  const fetchReq = await fetch('http://127.0.0.1:3000/api/todo')
+  const domainUrl = process.env.NODE_ENV==='development'?'http://127.0.0.1:3000/':process.env.DOMAIN_URL
+  const fetchReq = await fetch(`${domainUrl}api/todo`)
   const todoList = await fetchReq.json()
   return {
     props:{todoList:todoList}
